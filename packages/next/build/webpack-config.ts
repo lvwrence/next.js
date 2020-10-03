@@ -1224,7 +1224,6 @@ export default async function getBaseWebpackConfig(
     productionBrowserSourceMaps,
   })
 
-  let originalDevtool = webpackConfig.devtool
   if (typeof config.webpack === 'function') {
     webpackConfig = config.webpack(webpackConfig, {
       dir,
@@ -1236,11 +1235,6 @@ export default async function getBaseWebpackConfig(
       totalPages,
       webpack,
     })
-
-    if (dev && originalDevtool !== webpackConfig.devtool) {
-      webpackConfig.devtool = originalDevtool
-      devtoolRevertWarning(originalDevtool)
-    }
 
     if (typeof (webpackConfig as any).then === 'function') {
       console.warn(
